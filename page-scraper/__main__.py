@@ -47,4 +47,4 @@ elif choice == "images":
     else:
         images = [image["src"] for image in images]
 else:
-    pass
+    print("Tables not implemented!")
