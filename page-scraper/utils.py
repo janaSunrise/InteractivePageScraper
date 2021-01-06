@@ -1,3 +1,4 @@
+import sys
 import typing as t
 
 import requests
@@ -12,6 +13,6 @@ def get_website_content(site: str) -> t.Optional[bytes]:
 
     if req.status_code != 200:
         print(log(f"Could not establish connection to the site specified ({site})"))
-        return None
+        sys.exit(1)
 
     return req.content
