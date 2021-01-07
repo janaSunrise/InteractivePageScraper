@@ -47,3 +47,10 @@ elif choice == choices[2]:
 else:
     tables = soup.find_all("table")
     table_list = []
+
+    for index, table in enumerate(tables):
+        table_list.append([])
+        body = table.find_all("tr")
+
+        head = body[0]
+        body_rows = body[1:]
