@@ -1,3 +1,5 @@
+import re
+
 from .utils import get_website_content
 
 from bs4 import BeautifulSoup
@@ -59,4 +61,12 @@ else:
             item.text.rstrip("\n") for item in head.find_all("th")
         ]))
 
+        for row_num in range(len(body_rows)):
+            row = []
+            for row_item in body_rows[row_num].find_all("td"):
+                aa = re.sub("(\xa0)|(\n)|,", "", row_item.text)
+                row.append(aa)
 
+            table_list[index].append(tuple(row))
+
+    print(table_list)
