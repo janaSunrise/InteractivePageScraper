@@ -4,6 +4,7 @@ from .utils import get_website_content
 
 from bs4 import BeautifulSoup
 import inquirer
+import pandas as pd
 
 choices = ["Headings and Subheadings", "Links", "Images", "Tables"]
 questions = [
@@ -32,6 +33,7 @@ if choice == choices[0]:
         print("No headings found!")
     else:
         headings = [heading.text for heading in headings]
+        print(headings)
 elif choice == choices[1]:
     links = soup.find_all("a")
 
@@ -39,6 +41,7 @@ elif choice == choices[1]:
         print("No links found!")
     else:
         links = [(link["href"], link.text) for link in soup.find_all("a")]
+        print(links)
 elif choice == choices[2]:
     images = soup.find_all("img")
 
@@ -48,25 +51,29 @@ elif choice == choices[2]:
         images = [image["src"] for image in images]
 else:
     tables = soup.find_all("table")
-    table_list = []
 
-    for index, table in enumerate(tables):
-        table_list.append([])
-        body = table.find_all("tr")
+    if not tables or len(tables) == 0:
+        print("No table found!")
+    else:
+        table_list = []
 
-        head = body[0]
-        body_rows = body[1:]
+        for index, table in enumerate(tables):
+            table_list.append([])
+            body = table.find_all("tr")
 
-        table_list[index].append(tuple([
-            item.text.rstrip("\n") for item in head.find_all("th")
-        ]))
+            head = body[0]
+            body_rows = body[1:]
 
-        for row_num in range(len(body_rows)):
-            row = []
-            for row_item in body_rows[row_num].find_all("td"):
-                aa = re.sub("(\xa0)|(\n)|,", "", row_item.text)
-                row.append(aa)
+            table_list[index].append(tuple([
+                item.text.rstrip("\n") for item in head.find_all("th")
+            ]))
 
-            table_list[index].append(tuple(row))
+            for row_num in range(len(body_rows)):
+                row = []
+                for row_item in body_rows[row_num].find_all("td"):
+                    aa = re.sub("(\xa0)|(\n)|,", "", row_item.text)
+                    row.append(aa)
 
-    print(table_list)
+                table_list[index].append(tuple(row))
+
+        print(table_list)
