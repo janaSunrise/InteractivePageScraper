@@ -49,6 +49,7 @@ elif choice == choices[2]:
         print("No images found!")
     else:
         images = [image["src"] for image in images]
+        print(images)
 else:
     tables = soup.find_all("table")
 
@@ -76,4 +77,7 @@ else:
 
                 table_list[index].append(tuple(row))
 
-        print(table_list)
+        for index, table in enumerate(table_list):
+            table = pd.DataFrame(table[1:], columns=table[0])
+
+            print(f"Table #{index + 1}\n{table}\n")
