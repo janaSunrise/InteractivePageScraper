@@ -45,4 +45,5 @@ elif choice == choices[2]:
     else:
         images = [image["src"] for image in images]
 else:
-    print("Tables not implemented!")
+    tables = soup.find_all("table")
+    table_list = []
