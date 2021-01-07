@@ -54,3 +54,9 @@ else:
 
         head = body[0]
         body_rows = body[1:]
+
+        table_list[index].append(tuple([
+            item.text.rstrip("\n") for item in head.find_all("th")
+        ]))
+
+
