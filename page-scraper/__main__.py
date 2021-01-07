@@ -21,10 +21,6 @@ content = get_website_content(site)
 # Create the soup
 soup = BeautifulSoup(content, "lxml")
 
-lks = soup.find_all(["h1", "h2", "h3"])
-
-print(lks[0].text)
-
 choice = answers["parse_object"]
 if choice == choices[0]:
     headings = soup.find_all(["h1", "h2", "h3"])
