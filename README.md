@@ -1,6 +1,6 @@
 # Interactive Page Scraper
 
-An unique way to scrape web page components from webpages.
+An interactive, easy and unique way to scrape web page components from webpages.
 
 ## Features:
 
@@ -29,6 +29,9 @@ and then run the module by running `pipenv run start`
 
 - [x] Work on Tables
 - [x] Pretty print tables
+- [ ] Select the title of the page
+- [ ] Gather all the text of the page
+- [ ] Get all the `<p>` tag content
 - [ ] Work on CSS based selector
 
-Made by Sunrit Jana.
+<div style="text-align: center;">Made by Sunrit Jana.</div>
