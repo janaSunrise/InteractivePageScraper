@@ -27,7 +27,12 @@ soup = BeautifulSoup(content, "lxml")
 # Match the choices
 choice = answers["parse_object"]
 if choice == choices[0]:
-    pass
+    title = soup.find("title")
+
+    if not title:
+        print("No page title detected.")
+    else:
+        print(title.text)
 elif choice == choices[1]:
     headings = soup.find_all(["h1", "h2", "h3"])
 
