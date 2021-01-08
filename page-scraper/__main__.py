@@ -6,7 +6,16 @@ from bs4 import BeautifulSoup
 import inquirer
 import pandas as pd
 
-choices = ["Page title", "Headings and Subheadings", "All paragraphs", "Links", "Images", "Tables"]
+choices = [
+    "Page title",
+    "Headings and Subheadings",
+    "All paragraphs",
+    "Links",
+    "Images",
+    "Tables",
+    "All text from page",
+    "Whole source code"
+]
 questions = [
     inquirer.Text("site", message="Which site do you want to scrape"),
     inquirer.List(
@@ -67,7 +76,7 @@ elif choice == choices[4]:
     else:
         images = [image["src"] for image in images]
         print(images)
-else:
+elif choice == choices[5]:
     tables = soup.find_all("table")
 
     if not tables or len(tables) == 0:
@@ -98,3 +107,9 @@ else:
             table = pd.DataFrame(table[1:], columns=table[0])
 
             print(f"Table #{index + 1}\n{table}\n")
+elif choice == choices[6]:
+    complete_text = soup.get_text()
+    print(complete_text)
+else:
+    code = soup.prettify()
+    print(code)

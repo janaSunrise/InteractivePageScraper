@@ -30,8 +30,9 @@ and then run the module by running `pipenv run start`
 - [x] Work on Tables
 - [x] Pretty print tables
 - [x] Select the title of the page
-- [ ] Gather all the text of the page
-- [ ] Get all the `<p>` tag content
+- [x] Gather all the text of the page
+- [x] Get all the `<p>` tag content
+- [x] Whole source code
 - [ ] Work on CSS based selector
 
 <div style="text-align: center;">Made by Sunrit Jana.</div>
