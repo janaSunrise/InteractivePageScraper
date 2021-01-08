@@ -29,7 +29,7 @@ and then run the module by running `pipenv run start`
 
 - [x] Work on Tables
 - [x] Pretty print tables
-- [ ] Select the title of the page
+- [x] Select the title of the page
 - [ ] Gather all the text of the page
 - [ ] Get all the `<p>` tag content
 - [ ] Work on CSS based selector

@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import inquirer
 import pandas as pd
 
-choices = ["Page title", "Headings and Subheadings", "Links", "Images", "Tables"]
+choices = ["Page title", "Headings and Subheadings", "All paragraphs", "Links", "Images", "Tables"]
 questions = [
     inquirer.Text("site", message="Which site do you want to scrape"),
     inquirer.List(
@@ -42,6 +42,16 @@ elif choice == choices[1]:
         headings = [heading.text for heading in headings]
         print(headings)
 elif choice == choices[2]:
+    paragraphs = soup.find_all("p")
+
+    if not paragraphs or len(paragraphs) == 0:
+        print("No paragraphs found!")
+    else:
+        paragraphs = [
+            paragraph.text.replace("\n", "").strip() for paragraph in paragraphs
+        ]
+        print(paragraphs)
+elif choice == choices[3]:
     links = soup.find_all("a")
 
     if not links or len(links) == 0:
@@ -49,7 +59,7 @@ elif choice == choices[2]:
     else:
         links = [(link["href"], link.text) for link in soup.find_all("a")]
         print(links)
-elif choice == choices[3]:
+elif choice == choices[4]:
     images = soup.find_all("img")
 
     if not images or len(images) == 0:
