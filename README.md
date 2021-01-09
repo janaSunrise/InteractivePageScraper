@@ -33,6 +33,7 @@ and then run the module by running `pipenv run start`
 - [x] Gather all the text of the page
 - [x] Get all the `<p>` tag content
 - [x] Whole source code
+- [ ] Enable writing to file
 - [ ] Work on CSS based selector
 
 <div style="text-align: center;">Made by Sunrit Jana.</div>
