@@ -19,6 +19,6 @@ def get_website_content(site: str) -> t.Optional[bytes]:
 
 
 def write_to_file(content: str, filename: str) -> None:
-    with open(filename) as file:
+    with open(filename, "w") as file:
         file.write(content)
     print(f"Wrote to the file {filename}")
