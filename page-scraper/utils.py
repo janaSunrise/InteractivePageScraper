@@ -16,3 +16,9 @@ def get_website_content(site: str) -> t.Optional[bytes]:
         sys.exit(1)
 
     return req.content
+
+
+def write_to_file(content: str, filename: str) -> None:
+    with open(filename) as file:
+        file.write(content)
+    print(f"Wrote to the file {filename}")
