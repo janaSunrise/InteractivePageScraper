@@ -1,6 +1,6 @@
 import re
 
-from .utils import get_website_content
+from .utils import get_website_content, write_to_file
 
 from bs4 import BeautifulSoup
 import inquirer
@@ -22,7 +22,8 @@ questions = [
         "parse_object",
         message="Which object do you want to parse",
         choices=choices
-    )
+    ),
+    inquirer.Confirm("write_to_file", message="Should the output be written to file", default=False)
 ]
 answers = inquirer.prompt(questions)
 
@@ -35,11 +36,15 @@ soup = BeautifulSoup(content, "lxml")
 
 # Match the choices
 choice = answers["parse_object"]
+file_write = answers["write_to_file"]
+
 if choice == choices[0]:
     title = soup.find("title")
 
     if not title:
         print("No page title detected.")
+    elif file_write:
+        write_to_file(title.text, "title.txt")
     else:
         print(title.text)
 elif choice == choices[1]:
@@ -49,7 +54,10 @@ elif choice == choices[1]:
         print("No headings found!")
     else:
         headings = [heading.text for heading in headings]
-        print(headings)
+        if file_write:
+            write_to_file("\n".join(headings), "headings.txt")
+        else:
+            print("\n".join(headings))
 elif choice == choices[2]:
     paragraphs = soup.find_all("p")
 
@@ -59,15 +67,21 @@ elif choice == choices[2]:
         paragraphs = [
             paragraph.text.replace("\n", "").strip() for paragraph in paragraphs
         ]
-        print(paragraphs)
+        if file_write:
+            write_to_file("\n".join(paragraphs), "paragraphs.txt")
+        else:
+            print("\n".join(paragraphs))
 elif choice == choices[3]:
     links = soup.find_all("a")
 
     if not links or len(links) == 0:
         print("No links found!")
     else:
-        links = [(link["href"], link.text) for link in soup.find_all("a")]
-        print(links)
+        links = [str((link["href"], link.text)) for link in soup.find_all("a")]
+        if file_write:
+            write_to_file("\n".join(links), "links.txt")
+        else:
+            print("\n".join(links))
 elif choice == choices[4]:
     images = soup.find_all("img")
 
@@ -75,7 +89,10 @@ elif choice == choices[4]:
         print("No images found!")
     else:
         images = [image["src"] for image in images]
-        print(images)
+        if file_write:
+            write_to_file("\n".join(images), "image_urls.txt")
+        else:
+            print("\n".join(images))
 elif choice == choices[5]:
     tables = soup.find_all("table")
 
@@ -109,7 +126,13 @@ elif choice == choices[5]:
             print(f"Table #{index + 1}\n{table}\n")
 elif choice == choices[6]:
     complete_text = soup.get_text()
-    print(complete_text)
+    if file_write:
+        write_to_file(complete_text, "page_content.txt")
+    else:
+        print(complete_text)
 else:
     code = soup.prettify()
-    print(code)
+    if file_write:
+        write_to_file(code, "index.html")
+    else:
+        print(code)
